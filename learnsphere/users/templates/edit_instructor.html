@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+    <head>
+        {% include 'head.html' %}
+         </head>
+    <body class="sb-nav-fixed">
+        {% include 'navbar.html' %}
+        <div id="layoutSidenav">
+            <div id="layoutSidenav_nav">
+                {% include 'sidebar.html' %}
+            </div>
+            <div id="layoutSidenav_content">
+                <main>
+                   <h1>Edit Instructor</h1>
+    <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+
+    <div class="form-group">
+        <h3>User Details</h3>
+        {{ user_form.as_p }}  <!-- Display fields for username and email -->
+    </div>
+
+    <div class="form-group">
+        <h3>Instructor Details</h3>
+        {{ instructor_form.as_p }}  <!-- Display fields for name, bio, expertise, image -->
+    </div>
+
+    <button type="submit" class="btn btn-primary">Save Changes</button>
+</form>
+                    {% if messages %}
+    <ul class="alert alert-info">
+        {% for message in messages %}
+            <li>{{ message }}</li>
+        {% endfor %}
+    </ul>
+{% endif %}
+                </main>
+                {% include 'footer.html' %}
+            </div>
+        </div>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+        <script src="{% static 'js/scripts.js' %}"></script>
+    </body>
+</html>

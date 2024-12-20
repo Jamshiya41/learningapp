@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+  {% include 'header.html' %}
+
+</head>
+
+<body class="index-page">
+
+   {% include 'headnavbar.html' %}
+
+  <main class="main">
+
+    <!-- Hero Section -->
+    <section id="hero" class="hero section dark-background">
+{% if banner %}
+      <img src="{{ banner.image.url }}" alt="" data-aos="fade-in">
+
+      <div class="container">
+<!--        <h2 data-aos="fade-up" data-aos-delay="100">Learning Today,<br>Leading Tomorrow</h2>-->
+<!--        <p data-aos="fade-up" data-aos-delay="200">We are team of talented designers making websites with Bootstrap</p>-->
+<!--        <div class="d-flex mt-4" data-aos="fade-up" data-aos-delay="300">-->
+<!--          <a href="courses.html" class="btn-get-started">Get Started</a>-->
+<!--        </div>-->
+        <div class="banner-text">
+          <h2 data-aos="fade-up" data-aos-delay="100">{{ banner.title }}</h2>
+          {% if banner.subtitle %}
+            <p data-aos="fade-up" data-aos-delay="200">{{ banner.subtitle }}</p>
+          {% endif %}
+        </div>
+      </div>
+      {% else %}
+<p>No banner available.</p>
+{% endif %}
+    </section><!-- /Hero Section -->
+
+    <!-- Courses Section -->
+    <section id="courses" class="courses section">
+
+      <!-- Section Title -->
+      <div class="container section-title" data-aos="fade-up">
+        <h2>Courses</h2>
+        <p>Popular Courses</p>
+      </div><!-- End Section Title -->
+
+      <div class="container">
+
+        <div class="row">
+{% for course in courses %}
+          <div class="col-lg-4 col-md-6 d-flex align-items-stretch" data-aos="zoom-in" data-aos-delay="100">
+            <div class="course-item">
+              <img src="{{ course.image.url }}" class="img-fluid" alt="...">
+              <div class="course-content">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+<!--                  <p class="category">Web Development</p>-->
+                 <p class="price">${{ course.price }}</p>
+                </div>
+ <h3><a href="{% url 'course_details' course.id %}">{{ course.title }}</a></h3>
+                    <p class="description">{{ course.description }}</p>
+                    <div class="trainer d-flex justify-content-between align-items-center">
+                        <div class="trainer-profile d-flex align-items-center">
+                            <img src="{{ course.trainer.profile_picture.url }}" class="img-fluid" alt="">
+                             {% if course.trainer.image %}
+    <img src="{{ trainer.image.url }}" class="img-fluid" alt="Instructor Image">
+
+{% else %}
+    <img src="{% static 'assets/img/download.png' %}" class="img-fluid" alt="Instructor Image">
+{% endif %}
+                            <h5>Trainer:<a href="" class="trainer-link">{{ course.instructor }}</a></h5>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div> <!-- End Course Item-->
+{% empty %}
+        <p>No courses available at the moment.</p>
+    {% endfor %}
+
+        </div>
+
+      </div>
+
+    </section><!-- /Courses Section -->
+
+    <!-- Trainers Index Section -->
+    <section id="trainers-index" class="section trainers-index">
+
+      <div class="container">
+
+        <div class="row">
+
+
+           {% for trainer in trainers %}
+          <div class="col-lg-4 col-md-6 member" data-aos="fade-up" data-aos-delay="100">
+            <div class="member-img">
+           {% if trainer.image %}
+    <img src="{{ trainer.image.url }}" class="img-fluid" alt="Instructor Image">
+
+{% else %}
+    <img src="{% static 'assets/img/download.png' %}" class="img-fluid" alt="Instructor Image">
+{% endif %}
+            </div>
+            <div class="member-info text-center">
+              <h4>{{ trainer.name }}</h4>
+              <span>{{ trainer.expertise }}</span>
+              <p>{{ trainer.bio }}</p>
+            </div>
+          </div><!-- End Team Member -->
+{% empty %}
+        <p>No Trainers available at the moment.</p>
+    {% endfor %}
+          </div><!-- End Team Member -->
+
+        </div>
+
+
+
+    </section><!-- /Trainers Index Section -->
+
+  </main>
+
+   {% include 'main_footer.html' %}
+
+  <!-- Scroll Top -->
+  <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <!-- Preloader -->
+  <div id="preloader"></div>
+
+  <!-- Vendor JS Files -->
+  <script src="{% static 'assets/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+  <script src="{% static 'assets/vendor/php-email-form/validate.js' %}"></script>
+  <script src="{% static 'assets/vendor/aos/aos.js' %}"></script>
+  <script src="{% static 'assets/vendor/glightbox/js/glightbox.min.js' %}"></script>
+  <script src="{% static 'assets/vendor/purecounter/purecounter_vanilla.js' %}"></script>
+  <script src="{% static 'assets/vendor/swiper/swiper-bundle.min.js' %}"></script>
+
+  <!-- Main JS File -->
+  <script src="{% static 'assets/js/main.js' %}"></script>
+
+</body>
+
+</html>

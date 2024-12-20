@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+  {% include 'header.html' %}
+
+</head>
+<body class="courses-page">
+ {% include 'headnavbar.html' %}
+
+
+  <main class="main">
+
+    <!-- Page Title -->
+    <div class="page-title" data-aos="fade">
+
+      <nav class="breadcrumbs">
+        <div class="container">
+          <ol>
+             <li><a href="{% url 'home' %}">Home</a></li>
+            <li class="current">Courses</li>
+          </ol>
+        </div>
+      </nav>
+    </div><!-- End Page Title -->
+
+    <!-- Courses Section -->
+    <section id="courses" class="courses section">
+
+      <div class="container">
+
+        <div class="row">
+    {% for course in courses %}
+        <div class="col-lg-4 col-md-6 d-flex align-items-stretch" data-aos="zoom-in" data-aos-delay="{{ forloop.counter0|add:100 }}">
+            <div class="course-item">
+                    <img src="{{ course.image.url }}" class="img-fluid" alt="...">
+                <div class="course-content">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+<!--                        <p class="category">{{ course.category }}</p>-->
+                        <p class="price">${{ course.price }}</p>
+                    </div>
+
+                    <h3><a href="{% url 'course_details' course.id %}">{{ course.title }}</a></h3>
+                    <p class="description">{{ course.description }}</p>
+                    <div class="trainer d-flex justify-content-between align-items-center">
+                        <div class="trainer-profile d-flex align-items-center">
+                            <img src="{{ course.trainer.profile_picture.url }}" class="img-fluid" alt="">
+                             {% if course.trainer.image %}
+    <img src="{{ course.instructor.image.url }}" class="img-fluid" alt="Instructor Image">
+
+{% else %}
+    <img src="{% static 'assets/img/download.png' %}" class="img-fluid" alt="Instructor Image">
+{% endif %}
+                            <h5>Trainer:<a href="" class="trainer-link">{{ course.instructor }}</a></h5>
+
+                        </div>
+<!--                        <div class="trainer-rank d-flex align-items-center">-->
+<!--                            <i class="bi bi-person user-icon"></i>&nbsp;{{ course.enrolled_students.count }}-->
+<!--                            &nbsp;&nbsp;-->
+<!--                            <i class="bi bi-heart heart-icon"></i>&nbsp;{{ course.likes }}-->
+<!--                        </div>-->
+                        <div class="btn-wrap pricing section">
+               <a href="{% url 'checkout' plan_id=course.id %}" class="btn-buy">Buy Now</a>
+              </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% empty %}
+        <p>No courses available at the moment.</p>
+    {% endfor %}
+</div>
+
+      </div>
+
+    </section><!-- /Courses Section -->
+
+  </main>
+
+  {% include 'main_footer.html' %}
+
+  <!-- Scroll Top -->
+  <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <!-- Preloader -->
+  <div id="preloader"></div>
+
+
+  <!-- Vendor JS Files -->
+  <script src="{% static 'assets/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+  <script src="{% static 'assets/vendor/php-email-form/validate.js' %}"></script>
+  <script src="{% static 'assets/vendor/aos/aos.js' %}"></script>
+  <script src="{% static 'assets/vendor/glightbox/js/glightbox.min.js' %}"></script>
+  <script src="{% static 'assets/vendor/purecounter/purecounter_vanilla.js' %}"></script>
+  <script src="{% static 'assets/vendor/swiper/swiper-bundle.min.js' %}"></script>
+
+  <!-- Main JS File -->
+  <script src="{% static 'assets/js/main.js' %}"></script>
+
+</body>
+
+</html>
